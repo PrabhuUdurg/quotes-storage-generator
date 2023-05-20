@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime  import datetime 
 
@@ -21,7 +21,11 @@ class Generator(db.Model):
 # Flask urls
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
+    if request.method == 'POST':
+        pass
+        return 'Hello world'
+    else:  
+         return render_template('index.html')
 
 
 

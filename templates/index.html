@@ -7,26 +7,33 @@
 
 {% block body %}
 <div class="content"> 
-    <h1>Quote Storage & Generator</h1>
+    <h1 style="text-align: center;">Quote Storage & Generator</h1>
+    {% if quotes|length < 1 %} 
+    <h3 style="text-align: center;">No quotes yet</h3>
+    {% else %}
     <table>
         <tr>
             <th>Quote</th>
             <th>Added</th>
             <th>Actions</th>
         </tr>
+        {% for quote in quotes %}
         <tr>
-            <td></td>
-            <td></td>
+            <td>{{quote.text}}</td>
+            <td>{{ quote.date.date() }}</td>
             <td>
-                <a href="">Delete</a>
+                <a href="/delete/{{quote.id}}">Delete</a>
                 <br>
-                <a href="">Update</a>
+                <a href="/update/{{quote.id}}">Update</a>
             </td>
         </tr>
+        {% endfor%}
     </table>
+    {% endif %}
     <form action="/" method="POST">
         <input type="text" name="content" id="content"> 
         <input type="submit" value="Add quote">
     </form>
 </div>
+
 {% endblock %}

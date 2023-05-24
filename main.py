@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql.expression import func
 from datetime  import datetime 
+import random
 
 app = Flask(__name__)
 
@@ -32,7 +34,8 @@ def index():
             return 'There was an issue adding your quote'
     else:  
          quotes = Generator.query.order_by(Generator.date).all()
-         return render_template('index.html', quotes=quotes)
+         random_quote = Generator.query.order_by(func.random()).first()
+         return render_template('index.html', quotes=quotes, random=random_quote)
 
 # Delete function 
 @app.route('/delete/<int:id>')
@@ -59,7 +62,7 @@ def update(id):
         
     else:
         return render_template('update.html', quote=quote_to_update)
-        
+
 
 if __name__ == "__main__":
     app.run(debug=True) # make able ask to look for smart error massages 
